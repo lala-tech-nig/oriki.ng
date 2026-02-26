@@ -20,16 +20,25 @@ export default function AdminLayout({ children }) {
     const pathname = usePathname();
     const [sideOpen, setSideOpen] = useState(false);
 
+    const isLoginPage = pathname === '/admin/login';
+
     useEffect(() => {
+        if (isLoginPage) return; // skip auth guard on login page
         if (!loading) {
             if (!user) {
-                router.push('/auth/login');
+                router.push('/admin/login');
             } else if (user.role !== 'admin' && user.role !== 'superadmin') {
                 router.push('/dashboard');
             }
         }
-    }, [user, loading, router]);
+    }, [user, loading, router, isLoginPage]);
 
+    // Login page: render without sidebar/auth guard
+    if (isLoginPage) {
+        return <>{children}</>;
+    }
+
+    // Other admin pages: show spinner while auth resolves
     if (loading || !user || (user.role !== 'admin' && user.role !== 'superadmin')) {
         return (
             <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0D1B15' }}>
@@ -66,7 +75,7 @@ export default function AdminLayout({ children }) {
                 </nav>
 
                 <div style={{ padding: '12px', borderTop: '1px solid #1A3A2F' }}>
-                    <button onClick={() => { logout(); router.push('/auth/login'); }}
+                    <button onClick={() => { logout(); router.push('/admin/login'); }}
                         className="sidebar-link" style={{ color: '#ff4d4d', width: '100%', transition: 'all 0.2s' }}>
                         <span>🚪</span><span>Logout</span>
                     </button>
