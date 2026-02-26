@@ -14,7 +14,7 @@ const app = express();
 // Middleware
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({
-    origin: [process.env.CLIENT_URL || 'http://localhost:3000', 'http://localhost:3001'],
+    origin: [process.env.CLIENT_URL || 'http://localhost:3000', 'http://localhost:3001', 'https://oriki.ng', 'https://www.oriki.ng'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 }));
