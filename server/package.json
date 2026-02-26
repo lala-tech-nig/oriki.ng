@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "ORIKI.NG Backend API",
+  "license": "ISC",
+  "author": "LALA TECH",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.13.5",
+    "streamifier": "^0.1.1"
+  }
+}
